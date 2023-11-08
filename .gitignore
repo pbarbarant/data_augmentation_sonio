@@ -170,6 +170,3 @@ cython_debug/
 # Datasets
 data/raw/
 data/processed/
-
-# Config files
-config.py
