@@ -1,23 +1,22 @@
 [build-system]
-requires = ["setuptools", "setuptools-scm"]
+requires = ["setuptools", "wheel", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "echo-augmentation-cvae"
-version = "0.1.0"
 description = "A Python package for data augmentation of ultrasound foetal echography images using cVAEs"
 authors = [
-  {name = "Pierre-Louis Barbarant", email= "pierre-louis.barbarant@inria.fr"},
-  {name = "Yasmine Daouia", email = "yasmine.daouia@universite-paris-saclay.fr>"},
+  {name = "Pierre-Louis Barbarant", email = "pierre-louis.barbarant@inria.fr"},
+  {name = "Yasmine Daouia", email = "yasmine.daouia@universite-paris-saclay.fr"},
   {name = "Malek Ben-Salah", email = "malek.ben-salah@ensta-paris.fr"},
 ]
-license = "MIT"
 readme = "README.md"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+version = "0.1.0"
 requires-python = ">=3.11"
 dependencies = [
     "numpy>=1.20",
@@ -30,3 +29,7 @@ dev = [
   "ruff>=0.1",
   "pre-commit>=2.0",
 ]
+
+[project.urls]
+homepage = "https://github.com/pbarbarant/data_augmentation_sonio"
+repository = "https://github.com/pbarbarant/data_augmentation_sonio.git"
