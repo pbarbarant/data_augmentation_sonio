@@ -28,5 +28,6 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
   "ruff>=0.1",
+  "isort>=5.9",
   "pre-commit>=2.0",
 ]
