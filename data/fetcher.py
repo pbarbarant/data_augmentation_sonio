@@ -1,7 +1,7 @@
 import os
-import yaml
 from pathlib import Path
 
+import yaml
 
 with open(os.path.dirname(__file__) + "/../config/config.yaml", "r") as ymlfile:
     config = yaml.load(ymlfile, Loader=yaml.FullLoader)
@@ -25,9 +25,6 @@ def fetch_healthy_dataset(url, output):
 
 if __name__ == "__main__":
     output = Path("data/raw")
-    
-    # Fetch healthy data
-    fetch_healthy_dataset(config['datasets']['url_data_normal'], output)
-    
-    
 
+    # Fetch healthy data
+    fetch_healthy_dataset(config["datasets"]["url_data_normal"], output)
