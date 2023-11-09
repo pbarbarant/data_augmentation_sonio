@@ -10,7 +10,7 @@ from PIL import Image
 from skimage import color, exposure, filters, io, measure, morphology
 from tqdm import tqdm
 
-plt.rcParams["figure.dpi"] = 100
+
 data_path = Path(os.path.dirname(__file__) + "/raw/data_M2_healthy")
 output_path = Path(os.path.dirname(__file__) + "/processed")
 if not os.path.exists(output_path):
