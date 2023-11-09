@@ -145,5 +145,6 @@ if __name__ == "__main__":
                 error_list.append(im_id)
                 del e
     if len(error_list) > 0:
+        print("Number of errors:\n")
         print("Error list:\n")
         print(*error_list, sep="\n")
