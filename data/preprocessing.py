@@ -97,6 +97,40 @@ def pad_and_resize(image, size=512):
     return image
 
 
+def detect_segmentation(image, min_blob_area=50):
+    # Convert the image to the HSV color space
+    hsv_image = color.rgb2hsv(image)
+
+    # Define the lower and upper bounds for the red and blue colors
+    color_lower_red = np.array([0, 0.62, 0.57])
+    color_upper_red = np.array([0.05, 1, 1])
+    color_lower_blue = np.array([0.55, 0.4, 0.5])
+    color_upper_blue = np.array([0.7, 1, 1])
+
+    # Create a mask to isolate the specified colors
+    color_mask_red = np.all(
+        (hsv_image >= color_lower_red) & (hsv_image <= color_upper_red), axis=-1
+    )
+    color_mask_blue = np.all(
+        (hsv_image >= color_lower_blue) & (hsv_image <= color_upper_blue), axis=-1
+    )
+
+    color_mask = (color_mask_red + color_mask_blue) > 0
+
+    # Apply morphological operations to clean up the mask
+    color_mask = morphology.binary_closing(color_mask, morphology.disk(3))
+
+    # Label connected components in the mask to identify blobs
+    label_image = measure.label(color_mask, connectivity=2)
+
+    # Filter for blobs of sufficient size
+    for region in measure.regionprops(label_image):
+        if region.area >= min_blob_area:
+            return None
+
+    return image
+
+
 def image_processing_pipeline(image):
     # Crop top panel
     # image = crop_top_panel(image)
@@ -108,6 +142,8 @@ def image_processing_pipeline(image):
     image = remove_annotations(image, min_size=1e5)
     # Center and resize
     image = pad_and_resize(image, size=512)
+    # Detect segmentation and reject if any
+    image = detect_segmentation(image)
 
     return image
 
@@ -115,7 +151,6 @@ def image_processing_pipeline(image):
 plotting = False
 error_list = []
 if __name__ == "__main__":
-    # for path in np.random.choice(images_path, 10):
     for path in tqdm(images_path):
         im_name = path.split("/")[-1]
         im_id = im_name.split(
@@ -129,18 +164,21 @@ if __name__ == "__main__":
                 image = np.copy(original_image)
                 image = image_processing_pipeline(image)
 
-                # Save image
-                io.imsave(output_path / (im_id + ".jpg"), image)
+                if image is not None:
+                    # Save image
+                    io.imsave(output_path / (im_id + ".jpg"), image)
 
-                if plotting:
-                    fig, ax = plt.subplots(1, 2)
-                    ax[0].imshow(original_image)
-                    ax[1].imshow(image)
-                    ax[0].axis("off")
-                    ax[1].axis("off")
-                    ax[0].set_title(f"Constructor: {constructor_dict[im_id]}")
-                    ax[1].set_title("Processed image")
-                    plt.show()
+                    if plotting:
+                        fig, ax = plt.subplots(1, 2)
+                        ax[0].imshow(original_image)
+                        ax[1].imshow(image)
+                        ax[0].axis("off")
+                        ax[1].axis("off")
+                        ax[0].set_title(f"Constructor: {constructor_dict[im_id]}")
+                        ax[1].set_title("Processed image")
+                        plt.show()
+                else:
+                    error_list.append(im_id)
             except Exception as e:
                 error_list.append(im_id)
                 del e
