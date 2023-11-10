@@ -33,6 +33,7 @@ To use the code and resources in this repository, follow these steps:
 
    ```bash
    git clone https://github.com/pbarbarant/data_augmentation_sonio.git
+   cd data_augmentation_sonio
    ```
 2. Install the requirements in a dedicated Python environment:
 
