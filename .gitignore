@@ -174,3 +174,4 @@ data/processed/
 # Models
 models/**/*.json
 models/**/*.pt
+models/**/*.pkl
