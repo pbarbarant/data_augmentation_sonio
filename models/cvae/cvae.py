@@ -9,6 +9,7 @@ from pythae.data.datasets import BaseDataset
 from pythae.models.nn import BaseEncoder, BaseDecoder
 from pythae.models.base.base_utils import ModelOutput
 from pydantic.dataclasses import dataclass
+from pythae.pipelines import TrainingPipeline
 
 
 @dataclass
@@ -128,7 +129,8 @@ class CVAE(VAE):
         Returns:
             ModelOutput: model outputs
         """
-
+        # print(inputs['data'].shape)
+        # print(inputs['labels'].shape)
         x = inputs.data  # image
         y = inputs.labels  # one-hot encoding
 
@@ -169,14 +171,24 @@ if __name__ == "__main__":
     encoder = Custom_encoder(cvae_config)
     decoder = Custom_decoder(cvae_config)
 
-    # Test encoder
-    encoder_input = torch.cat([x, y], 1)
-    encoder_output = encoder(encoder_input)["embedding"]
-    decoder_input = torch.cat([encoder_output, y], 1)
-    decoder_output = decoder(decoder_input)["reconstruction"]
-    print(decoder_output.shape)
+    # # Test encoder
+    # encoder_input = torch.cat([x, y], 1)
+    # encoder_output = encoder(encoder_input)["embedding"]
+    # decoder_input = torch.cat([encoder_output, y], 1)
+    # decoder_output = decoder(decoder_input)["reconstruction"]
+    # print(decoder_output.shape)
 
-    # Test forward pass
-    model = CVAE(cvae_config, encoder, decoder)
-    model_output = model(inputs)
-    print(model_output.keys())
+    # # Test forward pass
+    # model = CVAE(cvae_config, encoder, decoder)
+    # model_output = model(inputs)
+    # print(model_output.keys())
+
+    # Build the model
+    model = CVAE(model_config=cvae_config, encoder=encoder, decoder=decoder)
+    # Build the Pipeline
+    pipeline = TrainingPipeline(model=model)
+
+    pipeline(
+        train_data=inputs,
+        # eval_data=inputs,
+    )
