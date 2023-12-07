@@ -86,12 +86,8 @@ class Custom_decoder(BaseDecoder):
 
     def forward(self, x: torch.Tensor) -> ModelOutput:
         out = self.layers(x)
-        log_covariance = torch.zeros_like(out)
         output = ModelOutput(
-            reconstruction=out[
-                :, : -self.class_size
-            ],  # Set the output from the decoder in a ModelOutput instance
-            log_covariance=log_covariance,
+            reconstruction=out[:, : -self.class_size],
         )
         return output
 
@@ -129,8 +125,7 @@ class CVAE(VAE):
         Returns:
             ModelOutput: model outputs
         """
-        # print(inputs['data'].shape)
-        # print(inputs['labels'].shape)
+
         x = inputs.data  # image
         y = inputs.labels  # one-hot encoding
 
