@@ -170,6 +170,7 @@ cython_debug/
 # Datasets
 data/raw/
 data/processed/
+data/processed_by_modality/
 
 # Models
 models/**/*.json
