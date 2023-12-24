@@ -176,3 +176,10 @@ data/processed_by_modality/
 models/**/*.json
 models/**/*.pt
 models/**/*.pkl
+
+# Logs
+logs/
+
+# Tensors
+*.safetensors
+*.bin
