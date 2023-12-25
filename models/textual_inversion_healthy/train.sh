@@ -1,7 +1,7 @@
 export MODEL_NAME="stabilityai/sd-turbo"
 export DATA_DIR="/data/parietal/store3/work/pbarbara/data_augmentation_sonio/data/processed_by_modality"
 
-python textual_inversion.py \
+accelerate launch --gpu_ids 0 textual_inversion.py \
     --pretrained_model_name_or_path=$MODEL_NAME \
     --train_data_dir=$DATA_DIR \
     --learnable_property="object" \
