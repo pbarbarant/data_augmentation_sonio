@@ -171,6 +171,7 @@ cython_debug/
 data/raw/
 data/processed/
 data/processed_by_modality/
+data/hf_dataset_healthy/
 
 # Models
 models/**/*.json
