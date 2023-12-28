@@ -28,6 +28,8 @@ dependencies = [
     "Pillow>=9.5",
     "pyraug>=0.0.6",
     "pythae>=0.1.2",
+    "diffusers>=0.25.0",
+    "datasets>=2.16.0",
 ]
 
 [project.optional-dependencies]
