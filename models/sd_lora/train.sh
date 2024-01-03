@@ -18,3 +18,4 @@ accelerate launch --gpu_ids 0 train_text_to_image_lora.py \
     --checkpointing_steps=1000 \
     --image_column="image" \
     --caption_column="caption" \
+    --report_to="wandb"
