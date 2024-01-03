@@ -53,9 +53,14 @@ for filename in tqdm(filenames_list):
     target_path = target_folder / output_filename
     # Add modality to dataframe
     dict_names_captions["file_name"].append(output_filename)
-    dict_names_captions["caption"].append(
-        f"A healthy cardiac image from a {modality} scanner"
-    )
+    if modality == "GE":
+        dict_names_captions["caption"].append(
+            "A healthy cardiac image from a General-Electric scanner"
+        )
+    else:
+        dict_names_captions["caption"].append(
+            f"A healthy cardiac image from a {modality} scanner"
+        )
     # Copy file to target folder
     shutil.copy(filename, target_path)
 
