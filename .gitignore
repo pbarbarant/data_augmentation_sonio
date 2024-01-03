@@ -185,3 +185,6 @@ logs/
 # Tensors
 *.safetensors
 *.bin
+
+# WandB
+wandb/
