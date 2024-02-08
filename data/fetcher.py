@@ -45,4 +45,4 @@ if __name__ == "__main__":
     # Fetch healthy data
     # fetch_healthy_dataset(config["datasets"]["url_data_normal"], output)
     # Fetch pathological data
-    fetch_unhealthy_dataset(config["datasets"]["url_data_unhealthy"], output)
+    fetch_unhealthy_dataset(config["datasets"]["url_data_patho"], output)
