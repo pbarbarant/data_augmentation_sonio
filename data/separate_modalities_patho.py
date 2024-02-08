@@ -9,13 +9,13 @@ from tqdm import tqdm
 from datasets import load_dataset
 
 source_folder = Path(
-    "/data/parietal/store3/work/pbarbara/data_augmentation_sonio/data/processed/"
+    "/data/parietal/store3/work/pbarbara/data_augmentation_sonio/data/processed_patho/"
 )
 target_folder = Path(
-    "/data/parietal/store3/work/pbarbara/data_augmentation_sonio/data/processed_by_modality/train/"
+    "/data/parietal/store3/work/pbarbara/data_augmentation_sonio/data/processed_by_modality/patho/"
 )
 modalities_path = Path(
-    "/data/parietal/store3/work/pbarbara/data_augmentation_sonio/data/raw/data_M2_healthy/data_constructor_healthy.json"
+    "/data/parietal/store3/work/pbarbara/data_augmentation_sonio/data/raw/data_M2_patho/data_constructor_patho.json"
 )
 
 assert source_folder.exists(), "Source folder does not exist"
@@ -26,7 +26,14 @@ if not os.path.exists(target_folder):
 # Load modalities
 modalities_dict = json.load(
     open(
-        "/data/parietal/store3/work/pbarbara/data_augmentation_sonio/data/raw/data_M2_healthy/data_constructor_healthy.json",
+        "/data/parietal/store3/work/pbarbara/data_augmentation_sonio/data/raw/data_M2_patho/data_constructor_patho.json",
+        "r",
+    )
+)
+# Load pathologies names
+patho_dict = json.load(
+    open(
+        "/data/parietal/store3/work/pbarbara/data_augmentation_sonio/data/raw/data_M2_patho/data_pathology.json",
         "r",
     )
 )
@@ -48,6 +55,7 @@ number_modality = {
 for filename in tqdm(filenames_list):
     identifier = filename.split("/")[-1].split(".")[0]
     modality = modalities_dict[identifier]
+    patho = patho_dict[identifier]
     output_filename = f"{modality}{number_modality[modality]}.jpg"
     number_modality[modality] += 1
     target_path = target_folder / output_filename
@@ -55,11 +63,11 @@ for filename in tqdm(filenames_list):
     dict_names_captions["file_name"].append(output_filename)
     if modality == "GE":
         dict_names_captions["caption"].append(
-            "A healthy cardiac image from a General-Electric scanner"
+            f"A pathological cardiac image from a General-Electric scanner with {patho}"
         )
     else:
         dict_names_captions["caption"].append(
-            f"A healthy cardiac image from a {modality} scanner"
+            f"A pathological cardiac image from a {modality} scanner with {patho}"
         )
     # Copy file to target folder
     shutil.copy(filename, target_path)
@@ -74,6 +82,6 @@ dataset = load_dataset(str(target_folder))
 # Save to disk
 dataset.save_to_disk(
     str(
-        "/data/parietal/store3/work/pbarbara/data_augmentation_sonio/data/hf_dataset_healthy"
+        "/data/parietal/store3/work/pbarbara/data_augmentation_sonio/data/hf_dataset_patho"
     )
 )
