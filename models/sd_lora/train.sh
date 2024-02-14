@@ -1,8 +1,8 @@
 export MODEL_NAME="stabilityai/sd-turbo"
 # export MODEL_PATH="/data/parietal/store3/work/pbarbara/data_augmentation_sonio/models/sd_lora/sd_lora_output/pytorch_lora_weights.safetensors"
 export OUTPUT_DIR="/data/parietal/store3/work/pbarbara/data_augmentation_sonio/models/sd_lora/sd_lora_output"
-export DATASET_NAME="/data/parietal/store3/work/pbarbara/data_augmentation_sonio/data/processed_by_modality/train"
-accelerate launch --gpu_ids 0 train_text_to_image_lora.py \
+export DATASET_NAME="/data/parietal/store3/work/pbarbara/data_augmentation_sonio/data/processed_by_modality/patho"
+accelerate launch --gpu_ids 0 models/sd_lora/train_text_to_image_lora.py \
     --pretrained_model_name_or_path=$MODEL_NAME \
     --train_data_dir=$DATASET_NAME \
     --dataloader_num_workers=8 \
