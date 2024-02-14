@@ -12,7 +12,7 @@ from tqdm import tqdm
 
 
 # data_path = Path(os.path.dirname(__file__) + "/raw/data_M2_healthy")
-data_path = Path(os.path.dirname(__file__) + "/raw/data_M2_patho")
+data_path = Path(os.path.dirname(__file__) + "/raw/data_patho")
 # output_path = Path(os.path.dirname(__file__) + "/processed")
 output_path = Path(os.path.dirname(__file__) + "/processed_patho")
 if not os.path.exists(output_path):
@@ -20,9 +20,9 @@ if not os.path.exists(output_path):
 
 
 # images_path = sorted(glob.glob(str(data_path / "data_healthy/*.jpg")))
-images_path = sorted(glob.glob(str(data_path / "data_healthy/*.jpg")))
+images_path = sorted(glob.glob(str(data_path / "**/*.jpg")))
 # constructor_dict = json.load(open(data_path / "data_constructor_healthy.json", "r"))
-constructor_dict = json.load(open(data_path / "data_constructor_patho.json", "r"))
+constructor_dict = json.load(open(data_path / "data_constructor.json", "r"))
 
 
 def crop_top_panel(image):
