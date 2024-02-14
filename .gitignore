@@ -170,6 +170,7 @@ cython_debug/
 # Datasets
 data/raw/
 data/processed/
+data/processed_patho/
 data/processed_by_modality/
 data/hf_dataset_healthy/
 data/synthetic_healthy/
