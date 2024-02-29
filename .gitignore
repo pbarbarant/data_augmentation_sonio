@@ -168,6 +168,7 @@ cython_debug/
 .LSOverride
 
 # Datasets
+config/config.yaml
 data/raw/
 data/processed/
 data/processed_patho/
