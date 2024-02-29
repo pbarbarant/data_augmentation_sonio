@@ -173,6 +173,7 @@ data/processed/
 data/processed_patho/
 data/processed_by_modality/
 data/hf*/
+data/M2_genAI_data/
 data/synthetic_healthy/
 
 # Models
