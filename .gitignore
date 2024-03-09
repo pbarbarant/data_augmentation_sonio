@@ -176,6 +176,7 @@ data/processed_by_modality/
 data/hf*/
 data/M2_genAI_data/
 data/synthetic_healthy/
+data/segmentations/
 
 # Models
 models/**/*.json
