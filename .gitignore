@@ -174,7 +174,9 @@ data/processed/
 data/processed_patho/
 data/processed_by_modality/
 data/hf*/
-data/M2_genAI_data/
+data/M2_genAI_data/images/
+data/M2_genAI_data/machines.csv
+data/M2_genAI_data/points_4CH.json
 data/synthetic_healthy/
 data/segmentations/
 
